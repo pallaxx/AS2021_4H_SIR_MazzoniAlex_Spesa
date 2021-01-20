@@ -1,0 +1,108 @@
+<html>
+    <head>
+        <script>
+            var Descrizione=[];
+            var Quantita=[];
+            var Prezzo=[];
+            var nprodotto=0;
+            var conta=0;
+            var Sconto=0;
+            var SpesaTot=0.0;
+            var SpesaSconto=0.0;
+            function Inserisci()
+            {
+                Descrizione[nprodotto]=document.getElementById('txtDesrizione').value;
+
+                Quantita[nprodotto]=parseInt(document.getElementById('txtQuantita').value);
+                if(isNaN(Quantita[nprodotto]))
+                {
+                    alert("Quantita Inserita non e' un numero il valore sara' 0")
+                    Quantita[nprodotto]=0;
+                }
+
+                Prezzo[nprodotto]=parseFloat(document.getElementById('txtPrezzo').value);
+                if(isNaN(Prezzo[nprodotto]))
+                {
+                    alert("Prezzo Inserito non e' un numero il valore sara' 0")
+                    Quantita[nprodotto]=0;
+                }
+
+                conta+=Quantita[nprodotto];
+                nprodotto++;
+                document.getElementById('txtNArticoli').value = (conta);
+            }            
+            function Calcola()
+            {
+                Sconto = parseInt(document.getElementById('txtSconto').value);
+                if(isNaN(Sconto))
+                {
+                    alert("Sconto Inserito non e' un numero intero sara' 0")
+                    Sconto=0;
+                }
+
+                for(var i=0;i<nprodotto;i++)
+                {
+                    SpesaTot += Quantita[i]*Prezzo[i];
+                    Descrizione[i]=0;
+                    Quantita[i]=0;
+                    Prezzo[i]=0;
+                }
+            if(Sconto==0)
+            {
+                SpesaSconto=SpesaTot;
+            }
+            else
+            {
+                SpesaSconto=(SpesaTot*Sconto)/100;
+                SpesaSconto=SpesaTot-SpesaSconto;
+            }
+            nprodotto=0;
+            conta=0;
+            document.getElementById('txtSpesaTot').value = (SpesaTot);
+            document.getElementById('txtSpesaSconto').value = (SpesaSconto);
+            }
+        </script>
+    </head>
+    <body>
+        <form>
+            <table>
+                <tr>
+                    <td>Descrizione</td>
+                    <td>Quantita'</td>
+                    <td>Prezzo</td>
+                    <td><button type="reset" onclick="Inserisci()">Inserisci</button></td>
+                </tr>
+                <tr>
+                    <td><input type="text" id="txtDesrizione"></td>
+                    <td><input type="text" id="txtQuantita"></td>
+                    <td><input type="text" id="txtPrezzo"></td>
+                </tr>
+            </table>
+        </form>
+        <form>
+            <table>
+                <tr>
+                    <td>Articoli Inseriti</td>
+                    <td><input type="text" id="txtNArticoli"  disabled></td>
+                </tr>
+        </form>
+        <form>
+            <table>
+                <tr><td><br></td></tr>
+                <tr>
+                    <td>Sconto Globale</td>
+                    <td><input type="text" id="txtSconto"></td>
+                    <td></td>
+                    <td><button type="button" onclick="Calcola()">Calcola</button></td>
+                </tr>
+                <tr><td><br></td></tr>
+                <tr>
+                    <td>Spesa senza sconto</td>
+                    <td><input type="text" id="txtSpesaTot" disabled></td>
+                    <td>Spesa con sconto</td>
+                    <td><input type="text" id="txtSpesaSconto" disabled></td>
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>
